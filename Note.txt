@@ -1,0 +1,40 @@
+Flask官网:http://flask.pocoo.org/docs/0.10/
+Flask中文网:http://docs.jinkan.org/docs/flask/
+
+1.幂等性: 帖子 http://www.i3geek.com/archives/841   https://www.cnblogs.com/leechenxiang/p/6626629.html
+幂等性：就是用户对于同一操作发起的一次请求或者多次请求的结果是一致的，不会因为多次点击而产生了副作用。
+举个最简单的例子，那就是支付，用户购买商品使用约支付，支付扣款成功，但是返回结果的时候网络异常，此时钱已经扣了，
+用户再次点击按钮，此时会进行第二次扣款，返回结果成功，用户查询余额返发现多扣钱了，流水记录也变成了两条．．．
+
+HTTP的幂等性:
+(1)HTTP GET方法用于获取资源，不应有副作用，所以是幂等的。比如：GET http://www.bank.com/account/123456，
+不会改变资源的状态，不论调用一次还是N次都没有副作用。
+请注意，这里强调的是一次和N次具有相同的副作用，而不是每次GET的结果相同。
+GET http://www.news.com/latest-news这个HTTP请求可能会每次得到不同的结果，但它本身并没有产生任何副作用，因而是满足幂等性的。
+
+(2)HTTP DELETE方法用于删除资源，有副作用，但它应该满足幂等性。比如：DELETE http://www.forum.com/article/4231，
+调用一次和N次对系统产生的副作用是相同的，即删掉id为4231的帖子；因此，调用者可以多次调用或刷新页面而不必担心引起错误。
+
+(3)HTTP POST方法用于创建资源，所对应的URI并非创建的资源本身，而是去执行创建动作的操作者，有副作用，不满足幂等性。
+比如：POST http://www.forum.com/articles的语义是在http://www.forum.com/articles下创建一篇帖子，
+HTTP响应中应包含帖子的创建状态以及帖子的URI。两次相同的POST请求会在服务器端创建两份资源，它们具有不同的URI；所以，POST方法不具备幂等性。
+
+(4)HTTP PUT方法用于创建或更新操作，所对应的URI是要创建或更新的资源本身，有副作用，它应该满足幂等性。
+比如：PUT http://www.forum/articles/4231的语义是创建或更新ID为4231的帖子。对同一URI进行多次PUT的副作用和一次PUT是相同的；
+因此，PUT方法具有幂等性。
+*如何防范 POST 重复提交
+对于电商应用来说，第一对应的后端 WebService 一定要做到幂等性，
+第二服务器端收到 POST 请求，在操作成功后必须302跳转到另外一个页面，这样即使用户刷新页面，也不会重复提交表单。
+
+2.路径转向问题
+路径 /demo 经浏览器转向自动变为/demo/
+
+3.如何构造装饰器
+详细代码在package decorator中
+
+4.python中flash相当于session
+通过get_flashed_messages来获取flash
+
+5.使用Flask框架构建项目,结构就像此网站一样
+
+6.使用模板继承,替换html文件的重复部分
