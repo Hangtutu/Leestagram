@@ -1,1 +1,1 @@
-This is an INS project
+This is an INS project(MVC)

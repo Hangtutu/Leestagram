@@ -3,7 +3,7 @@
 @time: 2017/12/26 11:31
 @describe:
 '''
-from webapp import db
+from web import db
 import random
 from datetime import datetime
 

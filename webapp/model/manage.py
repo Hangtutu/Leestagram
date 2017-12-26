@@ -3,9 +3,9 @@
 @time: 2017/12/26 11:30
 @describe:
 '''
-from webapp import app, db
+from web import app, db
 from flask_script import Manager
-from webapp.model.models import User, Image, Comment
+from web import User, Image, Comment
 from sqlalchemy import or_, and_
 import random
 
