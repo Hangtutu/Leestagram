@@ -3,7 +3,7 @@
 {% block css %}/static/styles/pages/index.css{% endblock%}
 {% block content %}
 <div class="page-main clearfix">
-{% for image in images: %}
+    {% for image in images %}
     <article class="mod">
         <header class="mod-hd">
             <time class="time">{{ image.created_date }}</time>
@@ -25,11 +25,12 @@
             <ul class="discuss-list">
                 <li class="more-discuss">
                     <a>
-                        <span>全部 </span><span class="">{{image.comments|length}}</span>
+                        <span>全部 </span><span class="">{{ image.comments|length }}</span>
+                        <!--意思是将image.comments作为第一个参数放入Jinja2自带函数length()中-->
                         <span> 条评论</span></a>
                 </li>
-                {% for comment in image.comments: %}
-                {% if loop.index > 2 %} {% break %} {% endif %}
+                {% for comment in image.comments %}
+                    {% if loop.index > 2 %} {% break %} {% endif %} <!---->
                 <li>
                     <!-- <a class=" icon-remove" title="删除评论"></a> -->
                     <a class="_4zhc5 _iqaka" title="zjuyxy" href="/profile/{{comment.user_id}}" data-reactid=".0.1.0.0.0.2.1.2:$comment-17856951190001917.1">{{comment.user.username}}</a>

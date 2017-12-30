@@ -6,7 +6,7 @@
     <meta name="Keywords" content="">
 
     <title>{% block title %}{% endblock%}</title>
-    <link rel="stylesheet" href="{% block css %}{% endblock%}">
+    <link rel="stylesheet" href="{% block css %}{% endblock %}">
 </head>
 <body>
     <div class="container">
@@ -15,7 +15,7 @@
                 <div class="header-cont">
                     <a class="logo" href="/">logo</a>
                     <div class="web-menu">
-                        <a class="profile-ico">个人主页</a>
+                        <a class="profile-ico" href="/regloginpage/">个人主页</a>
                     </div>
                 </div>
             </header>
@@ -54,10 +54,11 @@
                             </li>
                         </ul>
                     </nav>
-                    <span class="copy-right">© 2016 nowcoder</span>
+                    <span class="copy-right">© 2016 Leestagram</span>
                 </div>
             </footer>
         </section>
     </div>
 </body>
+{% block js %}{% endblock %}
 </html>

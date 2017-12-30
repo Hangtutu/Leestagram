@@ -1,14 +1,15 @@
-'''
-@arthor: lihang
+"""
+@author: lihang
 @time: 2017/12/26 11:30
 @describe:
-'''
-from web import app, db
+"""
+from web import db, app
 from flask_script import Manager
-from web import User, Image, Comment
+from webapp.model.models import User, Image, Comment
 from sqlalchemy import or_, and_
 import random
 
+print('manage')
 manager = Manager(app)
 
 
@@ -22,7 +23,7 @@ def init_database():
     db.create_all()
     for i in range(0, 100):
         db.session.add(User('tutu' + str(i + 1), 'pw' + str(i)))
-        for j in range(0, 3):
+        for j in range(0, 10):
             db.session.add(Image(get_image_url(), i + 1))
 
             for k in range(0, 3):
@@ -45,4 +46,5 @@ def init_database():
 
 
 if __name__ == '__main__':
+    # init_database()
     manager.run()

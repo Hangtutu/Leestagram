@@ -1,6 +1,9 @@
-'''
-@arthor: lihang
+"""
+@author: lihang
 @time: 2017/12/26 15:10
 @describe:
-'''
-__all__=['manage','models']
+"""
+print('model init')
+from . import *
+
+__all__ = ['models']
