@@ -9,6 +9,7 @@ from datetime import datetime
 
 
 class User(db.Model):
+    __table_args__ = {'mysql_collate': 'utf8_general_ci'}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(80), unique=True)
     password = db.Column(db.String(32))
@@ -48,6 +49,7 @@ class User(db.Model):
 
 
 class Image(db.Model):
+    __table_args__ = {'mysql_collate': 'utf8_general_ci'}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     url = db.Column(db.String(512))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -64,8 +66,9 @@ class Image(db.Model):
 
 
 class Comment(db.Model):
+    __table_args__ = {'mysql_collate': 'utf8_general_ci'}
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    content = db.Column(db.String(1024))
+    content = db.Column(db.Text)
     image_id = db.Column(db.Integer, db.ForeignKey('image.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     status = db.Column(db.Integer, default=0)  # 0 正常 1删除

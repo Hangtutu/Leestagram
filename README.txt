@@ -1,1 +1,1 @@
-This is an INS project(MVC)
+这是一个图片发布网站

@@ -12,6 +12,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 import uuid, os, json
 import smtplib
 from email.mime.text import MIMEText
+import threading
 
 
 # index():首页遍历图片
@@ -74,6 +75,7 @@ def reg():
     return redirect('/')
 
 
+# 发送邮件,刚刚注册成功的用户会收到一封邮件
 def send_email(useremail):
     msg_from = '3215758767@qq.com'  # 发送方邮箱
     passwd = 'fytuqdwnxufjdegj'  # 填入发送方邮箱的授权码
@@ -220,3 +222,44 @@ def index_images(page, per_page):
 
     map['images'] = images
     return json.dumps(map)
+
+
+# 群发邮件
+def send_group_emails(msg_to):
+    msg_from = '3215758767@qq.com'  # 发送方邮箱
+    passwd = 'fytuqdwnxufjdegj'  # 填入发送方邮箱的授权码
+
+    subject = "小可爱们"  # 主题
+    content = "元旦快乐哦!"  # 正文
+    msg = MIMEText(content)
+    msg['Subject'] = subject
+    msg['From'] = msg_from
+    msg['To'] = ','.join(msg_to)
+    try:
+        s = smtplib.SMTP_SSL("smtp.qq.com", 465)  # 邮件服务器及端口号
+        s.login(msg_from, passwd)
+        s.sendmail(msg_from, msg_to, msg.as_string())
+
+        print("发送成功")
+    except s.SMTPException as e:
+        print("发送失败")
+    finally:
+        s.quit()
+
+
+# 多线程群发邮件
+@app.route('/sendgroupemails/')
+def send_group_emails_with_threading():
+    msg_to = ['3215758767@qq.com', '2905036691@qq.com']  # 收件人邮箱
+    threads = []
+    t1 = threading.Thread(target=send_group_emails, args=(msg_to,))
+    threads.append(t1)
+    t2 = threading.Thread(target=send_group_emails, args=(msg_to,))
+    threads.append(t2)
+    for t in threads:
+        t.setDaemon(True)
+        t.start()
+    t.join()
+    return 'the emails is already sent'
+
+# , '1015486437@qq.com', '643703301@qq.com', '1826327055@qq.com', '731404175@qq.com', '867268687@qq.com', '2731324540@qq.com'
